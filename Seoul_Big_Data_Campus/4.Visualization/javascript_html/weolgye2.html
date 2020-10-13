@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>다각형의 면적 계산하기</title>
+    <style>
+.info {position:relative;top:5px;left:5px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;font-size:12px;padding:5px;background:#fff;list-style:none;margin:0;} 
+.info:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}    
+.info .label {display:inline-block;width:50px;}
+.number {font-weight:bold;color:#00a0e9;}  
+</style>
+</head>
+<body>
+<div id="map" style="width:100%;height:350px;"></div>  
+<p>
+    <em>지도를 마우스로 클릭하면 다각형 그리기가 시작되고 <br>오른쪽 마우스를 클릭하면 다각형 그리기가 종료됩니다</em>   
+</p> 
+  
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1afcc54b188db3b08287e144dc51ed8e
+"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+    mapOption = { 
+        center: new kakao.maps.LatLng(37.560804, 126.846707), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+
+
+// 지도에 표시할 원을 생성합니다
+var circle1 = new kakao.maps.Circle({
+    center : new kakao.maps.LatLng(37.6296673,127.051831),  // 721
+    radius: 50, // 미터 단위의 원의 반지름입니다 
+    strokeWeight: 5, // 선의 두께입니다 
+    strokeColor: '#75B8FA', // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'dashed', // 선의 스타일 입니다
+    fillColor: '#CFE7FF', // 채우기 색깔입니다
+    fillOpacity: 0.7  // 채우기 불투명도 입니다   
+}); 
+
+var circle2 = new kakao.maps.Circle({
+    center : new kakao.maps.LatLng(37.6286382, 127.0561033),  // 721
+    radius: 50, // 미터 단위의 원의 반지름입니다 
+    strokeWeight: 5, // 선의 두께입니다 
+    strokeColor: '#75B8FA', // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'dashed', // 선의 스타일 입니다
+    fillColor: '#CFE7FF', // 채우기 색깔입니다
+    fillOpacity: 0.7  // 채우기 불투명도 입니다   
+}); 
+
+var circle3 = new kakao.maps.Circle({
+    center : new kakao.maps.LatLng(37.628, 127.05),  // 721
+    radius: 50, // 미터 단위의 원의 반지름입니다 
+    strokeWeight: 5, // 선의 두께입니다 
+    strokeColor: '#75B8FA', // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'dashed', // 선의 스타일 입니다
+    fillColor: '#CFE7FF', // 채우기 색깔입니다
+    fillOpacity: 0.7  // 채우기 불투명도 입니다   
+}); 
+
+var circle4 = new kakao.maps.Circle({
+    center : new kakao.maps.LatLng(37.629906, 127.054057),  // 721
+    radius: 50, // 미터 단위의 원의 반지름입니다 
+    strokeWeight: 5, // 선의 두께입니다 
+    strokeColor: '#75B8FA', // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'dashed', // 선의 스타일 입니다
+    fillColor: '#CFE7FF', // 채우기 색깔입니다
+    fillOpacity: 0.7  // 채우기 불투명도 입니다   
+}); 
+
+var circle5 = new kakao.maps.Circle({
+    center : new kakao.maps.LatLng(37.6280771, 127.047024),  // 721
+    radius: 50, // 미터 단위의 원의 반지름입니다 
+    strokeWeight: 5, // 선의 두께입니다 
+    strokeColor: '#75B8FA', // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'dashed', // 선의 스타일 입니다
+    fillColor: '#CFE7FF', // 채우기 색깔입니다
+    fillOpacity: 0.7  // 채우기 불투명도 입니다   
+}); 
+
+var circle6 = new kakao.maps.Circle({
+    center : new kakao.maps.LatLng(37.638204, 127.050918),  // 721
+    radius: 50, // 미터 단위의 원의 반지름입니다 
+    strokeWeight: 5, // 선의 두께입니다 
+    strokeColor: '#75B8FA', // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'dashed', // 선의 스타일 입니다
+    fillColor: '#CFE7FF', // 채우기 색깔입니다
+    fillOpacity: 0.7  // 채우기 불투명도 입니다   
+}); 
+var circle7 = new kakao.maps.Circle({
+    center : new kakao.maps.LatLng(37.62898671, 127.0570553),  // 721
+    radius: 50, // 미터 단위의 원의 반지름입니다 
+    strokeWeight: 5, // 선의 두께입니다 
+    strokeColor: '#75B8FA', // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'dashed', // 선의 스타일 입니다
+    fillColor: '#CFE7FF', // 채우기 색깔입니다
+    fillOpacity: 0.7  // 채우기 불투명도 입니다   
+}); 
+
+var circle8 = new kakao.maps.Circle({
+    center : new kakao.maps.LatLng(37.627519, 127.052772),  // 721
+    radius: 50, // 미터 단위의 원의 반지름입니다 
+    strokeWeight: 5, // 선의 두께입니다 
+    strokeColor: '#75B8FA', // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'dashed', // 선의 스타일 입니다
+    fillColor: '#CFE7FF', // 채우기 색깔입니다
+    fillOpacity: 0.7  // 채우기 불투명도 입니다   
+}); 
+
+var circle9 = new kakao.maps.Circle({
+    center : new kakao.maps.LatLng(37.6324948, 127.0507309),  // 721
+    radius: 50, // 미터 단위의 원의 반지름입니다 
+    strokeWeight: 5, // 선의 두께입니다 
+    strokeColor: '#75B8FA', // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'dashed', // 선의 스타일 입니다
+    fillColor: '#CFE7FF', // 채우기 색깔입니다
+    fillOpacity: 0.7  // 채우기 불투명도 입니다   
+}); 
+
+var circle10 = new kakao.maps.Circle({
+    center : new kakao.maps.LatLng(37.6384163, 127.0517378),  // 721
+    radius: 50, // 미터 단위의 원의 반지름입니다 
+    strokeWeight: 5, // 선의 두께입니다 
+    strokeColor: '#75B8FA', // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'dashed', // 선의 스타일 입니다
+    fillColor: '#CFE7FF', // 채우기 색깔입니다
+    fillOpacity: 0.7  // 채우기 불투명도 입니다   
+}); 
+
+
+// 지도에 원을 표시합니다 
+circle1.setMap(map); 
+circle2.setMap(map);
+circle3.setMap(map);
+circle4.setMap(map);
+circle6.setMap(map);
+circle7.setMap(map);
+circle8.setMap(map);
+circle9.setMap(map);
+circle10.setMap(map);
+
+// 다각형을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 다각형을 표시합니다
+var polygonPath1 = [
+        new kakao.maps.LatLng(37.64487189,127.05111923),
+    new kakao.maps.LatLng(37.64472421,127.05117646),
+    new kakao.maps.LatLng(37.64477765,127.05136188),
+    new kakao.maps.LatLng(37.64462151,127.05142611),
+    new kakao.maps.LatLng(37.64446955,127.05154397),
+    new kakao.maps.LatLng(37.64445884,127.05154959),
+    new kakao.maps.LatLng(37.64444826,127.05155279),
+    new kakao.maps.LatLng(37.64427493,127.0515924),
+    new kakao.maps.LatLng(37.64411381,127.05162507),
+    new kakao.maps.LatLng(37.64408954,127.05163182),
+    new kakao.maps.LatLng(37.64391841,127.05174323),
+    new kakao.maps.LatLng(37.64383229,127.05178119),
+    new kakao.maps.LatLng(37.64377046,127.05180658),
+    new kakao.maps.LatLng(37.64369861,127.05183738),
+    new kakao.maps.LatLng(37.64361884,127.05187123),
+    new kakao.maps.LatLng(37.6435854,127.05188509),
+    new kakao.maps.LatLng(37.6435477,127.05189748),
+    new kakao.maps.LatLng(37.64348078,127.05191907),
+    new kakao.maps.LatLng(37.64343506,127.0519339),
+    new kakao.maps.LatLng(37.64339742,127.05194581),
+    new kakao.maps.LatLng(37.64338768,127.0519499),
+    new kakao.maps.LatLng(37.64335488,127.05196676),
+    new kakao.maps.LatLng(37.64328218,127.05200394),
+    new kakao.maps.LatLng(37.64321713,127.05203654),
+    new kakao.maps.LatLng(37.64315305,127.05206796),
+    new kakao.maps.LatLng(37.64308964,127.05209855),
+    new kakao.maps.LatLng(37.64301154,127.05213719),
+    new kakao.maps.LatLng(37.64294763,127.0521617),
+    new kakao.maps.LatLng(37.64290031,127.05218007),
+    new kakao.maps.LatLng(37.64283106,127.0522068),
+    new kakao.maps.LatLng(37.64278172,127.05223512),
+    new kakao.maps.LatLng(37.64266645,127.05229876),
+    new kakao.maps.LatLng(37.64263112,127.05231104),
+    new kakao.maps.LatLng(37.6425755,127.05233232),
+    new kakao.maps.LatLng(37.64252939,127.05236047),
+    new kakao.maps.LatLng(37.64244837,127.05240954),
+    new kakao.maps.LatLng(37.64242208,127.05242326),
+    new kakao.maps.LatLng(37.64237309,127.05246253),
+    new kakao.maps.LatLng(37.64233178,127.05249732),
+    new kakao.maps.LatLng(37.64231704,127.05251024),
+    new kakao.maps.LatLng(37.64221641,127.0525792),
+    new kakao.maps.LatLng(37.64210193,127.05266397),
+    new kakao.maps.LatLng(37.64205688,127.05269197),
+    new kakao.maps.LatLng(37.6420176,127.05271578),
+    new kakao.maps.LatLng(37.64200625,127.05272266),
+    new kakao.maps.LatLng(37.64184901,127.05281327),
+    new kakao.maps.LatLng(37.64176856,127.0528589),
+    new kakao.maps.LatLng(37.64168886,127.05292971),
+    new kakao.maps.LatLng(37.64163521,127.05297765),
+    new kakao.maps.LatLng(37.64158331,127.05303164),
+    new kakao.maps.LatLng(37.64150296,127.0531157),
+    new kakao.maps.LatLng(37.64139987,127.05322348),
+    new kakao.maps.LatLng(37.64127508,127.05335338),
+    new kakao.maps.LatLng(37.64123168,127.05339935),
+    new kakao.maps.LatLng(37.64121757,127.05341583),
+    new kakao.maps.LatLng(37.64111211,127.05353431),
+    new kakao.maps.LatLng(37.64105998,127.05359224),
+    new kakao.maps.LatLng(37.641059,127.05359831),
+    new kakao.maps.LatLng(37.64098405,127.0536618),
+    new kakao.maps.LatLng(37.6409357,127.05370416),
+    new kakao.maps.LatLng(37.64086294,127.05381526),
+    new kakao.maps.LatLng(37.64084958,127.05383567),
+    new kakao.maps.LatLng(37.64080835,127.05389818),
+    new kakao.maps.LatLng(37.6407883,127.05392339),
+    new kakao.maps.LatLng(37.6407285,127.0540007),
+    new kakao.maps.LatLng(37.64070649,127.05402915),
+    new kakao.maps.LatLng(37.64068644,127.0540524),
+    new kakao.maps.LatLng(37.64061889,127.05412272),
+    new kakao.maps.LatLng(37.6406056,127.05413683),
+    new kakao.maps.LatLng(37.64051129,127.05423697),
+    new kakao.maps.LatLng(37.64041662,127.05433585),
+    new kakao.maps.LatLng(37.64037897,127.05439388),
+    new kakao.maps.LatLng(37.64028957,127.05452842),
+    new kakao.maps.LatLng(37.64027984,127.05454148),
+    new kakao.maps.LatLng(37.64025136,127.05456928),
+    new kakao.maps.LatLng(37.64021217,127.05460843),
+    new kakao.maps.LatLng(37.6401582,127.05466075),
+    new kakao.maps.LatLng(37.64009627,127.05473772),
+    new kakao.maps.LatLng(37.64010322,127.05475486),
+    new kakao.maps.LatLng(37.64011353,127.05478032),
+    new kakao.maps.LatLng(37.64021949,127.0550047),
+    new kakao.maps.LatLng(37.6403004,127.05517614),
+    new kakao.maps.LatLng(37.64041272,127.05541379),
+    new kakao.maps.LatLng(37.64050932,127.05561864),
+    new kakao.maps.LatLng(37.64058683,127.05578457),
+    new kakao.maps.LatLng(37.64058692,127.05578472),
+    new kakao.maps.LatLng(37.64047396,127.05589095),
+    new kakao.maps.LatLng(37.6403562,127.05600011),
+    new kakao.maps.LatLng(37.64024014,127.05610767),
+    new kakao.maps.LatLng(37.64018324,127.05616039),
+    new kakao.maps.LatLng(37.64007844,127.05627823),
+    new kakao.maps.LatLng(37.63996264,127.05640616),
+    new kakao.maps.LatLng(37.6398508,127.05652966),
+    new kakao.maps.LatLng(37.63977332,127.05661511),
+    new kakao.maps.LatLng(37.639644,127.05675719),
+    new kakao.maps.LatLng(37.63959696,127.05680903),
+    new kakao.maps.LatLng(37.63952456,127.05687945),
+    new kakao.maps.LatLng(37.63942539,127.05697764),
+    new kakao.maps.LatLng(37.63933187,127.05706804),
+    new kakao.maps.LatLng(37.63922594,127.05717049),
+    new kakao.maps.LatLng(37.63910058,127.05729326),
+    new kakao.maps.LatLng(37.63897888,127.05741108),
+    new kakao.maps.LatLng(37.63894451,127.05744381),
+    new kakao.maps.LatLng(37.6387104,127.05767203),
+    new kakao.maps.LatLng(37.63870758,127.05767486),
+    new kakao.maps.LatLng(37.63847439,127.05775472),
+    new kakao.maps.LatLng(37.63826205,127.0578259),
+    new kakao.maps.LatLng(37.63816657,127.05785805),
+    new kakao.maps.LatLng(37.63793531,127.05803316),
+    new kakao.maps.LatLng(37.63776207,127.05816688),
+    new kakao.maps.LatLng(37.63764094,127.0582592),
+    new kakao.maps.LatLng(37.63750601,127.05836178),
+    new kakao.maps.LatLng(37.6374091,127.05846582),
+    new kakao.maps.LatLng(37.63727753,127.05860806),
+    new kakao.maps.LatLng(37.63712032,127.05878021),
+    new kakao.maps.LatLng(37.63697776,127.05893591),
+    new kakao.maps.LatLng(37.63678197,127.05912802),
+    new kakao.maps.LatLng(37.6366628,127.05924531),
+    new kakao.maps.LatLng(37.63664871,127.05925893),
+    new kakao.maps.LatLng(37.63651688,127.05936223),
+    new kakao.maps.LatLng(37.63638561,127.05946197),
+    new kakao.maps.LatLng(37.63616624,127.05950058),
+    new kakao.maps.LatLng(37.63615187,127.05951208),
+    new kakao.maps.LatLng(37.63605582,127.05957946),
+    new kakao.maps.LatLng(37.63590906,127.05968273),
+    new kakao.maps.LatLng(37.63577357,127.05977717),
+    new kakao.maps.LatLng(37.63569245,127.05983323),
+    new kakao.maps.LatLng(37.63564879,127.05986276),
+    new kakao.maps.LatLng(37.63563527,127.05987531),
+    new kakao.maps.LatLng(37.63558597,127.05991529),
+    new kakao.maps.LatLng(37.63554822,127.05994926),
+    new kakao.maps.LatLng(37.63546737,127.06002178),
+    new kakao.maps.LatLng(37.63535524,127.06012295),
+    new kakao.maps.LatLng(37.63526031,127.06020291),
+    new kakao.maps.LatLng(37.63510482,127.06031486),
+    new kakao.maps.LatLng(37.63506537,127.06037112),
+    new kakao.maps.LatLng(37.63494574,127.0605394),
+    new kakao.maps.LatLng(37.63455184,127.05975863),
+    new kakao.maps.LatLng(37.63416054,127.05887771),
+    new kakao.maps.LatLng(37.63368002,127.05886259),
+    new kakao.maps.LatLng(37.63366263,127.05886204),
+    new kakao.maps.LatLng(37.63362014,127.05886077),
+    new kakao.maps.LatLng(37.63342149,127.05885488),
+    new kakao.maps.LatLng(37.63340702,127.05885445),
+    new kakao.maps.LatLng(37.63314341,127.05884661),
+    new kakao.maps.LatLng(37.63287909,127.05883877),
+    new kakao.maps.LatLng(37.63287653,127.05883869),
+    new kakao.maps.LatLng(37.63278168,127.05883588),
+    new kakao.maps.LatLng(37.63240358,127.05882064),
+    new kakao.maps.LatLng(37.63231448,127.05881704),
+    new kakao.maps.LatLng(37.63217985,127.05881843),
+    new kakao.maps.LatLng(37.63199057,127.05882041),
+    new kakao.maps.LatLng(37.63199024,127.05891949),
+    new kakao.maps.LatLng(37.63192445,127.05892036),
+    new kakao.maps.LatLng(37.63186462,127.05892279),
+    new kakao.maps.LatLng(37.6318602,127.05882203),
+    new kakao.maps.LatLng(37.63173224,127.05882363),
+    new kakao.maps.LatLng(37.63137253,127.0588618),
+    new kakao.maps.LatLng(37.6308126,127.05892121),
+    new kakao.maps.LatLng(37.63068278,127.05893499),
+    new kakao.maps.LatLng(37.63059523,127.05895425),
+    new kakao.maps.LatLng(37.63055324,127.05896348),
+    new kakao.maps.LatLng(37.63015976,127.05905003),
+    new kakao.maps.LatLng(37.62985836,127.05856894),
+    new kakao.maps.LatLng(37.62961881,127.05818658),
+    new kakao.maps.LatLng(37.62947417,127.05795573),
+    new kakao.maps.LatLng(37.62937207,127.05779322),
+    new kakao.maps.LatLng(37.6292952,127.05767089),
+    new kakao.maps.LatLng(37.62905322,127.05728574),
+    new kakao.maps.LatLng(37.6289058,127.0570511),
+    new kakao.maps.LatLng(37.62889337,127.05706541),
+    new kakao.maps.LatLng(37.6286692,127.05671197),
+    new kakao.maps.LatLng(37.6285486,127.05652182),
+    new kakao.maps.LatLng(37.62814084,127.05587892),
+    new kakao.maps.LatLng(37.62809542,127.05578666),
+    new kakao.maps.LatLng(37.62802501,127.05564363),
+    new kakao.maps.LatLng(37.62795719,127.05550585),
+    new kakao.maps.LatLng(37.62762463,127.05501125),
+    new kakao.maps.LatLng(37.62756052,127.05491588),
+    new kakao.maps.LatLng(37.62755429,127.05490661),
+    new kakao.maps.LatLng(37.62730595,127.05453726),
+    new kakao.maps.LatLng(37.62692755,127.05397446),
+    new kakao.maps.LatLng(37.62688439,127.05391029),
+    new kakao.maps.LatLng(37.62658282,127.05343644),
+    new kakao.maps.LatLng(37.62651372,127.05332787),
+    new kakao.maps.LatLng(37.6262035,127.05284041),
+    new kakao.maps.LatLng(37.62569485,127.05204123),
+    new kakao.maps.LatLng(37.6256765,127.05201239),
+    new kakao.maps.LatLng(37.62567348,127.05200765),
+    new kakao.maps.LatLng(37.62540871,127.05159166),
+    new kakao.maps.LatLng(37.62533499,127.05147583),
+    new kakao.maps.LatLng(37.62516162,127.05120344),
+    new kakao.maps.LatLng(37.62494752,127.05086704),
+    new kakao.maps.LatLng(37.62465925,127.05041415),
+    new kakao.maps.LatLng(37.62439063,127.04999211),
+    new kakao.maps.LatLng(37.62423386,127.04974581),
+    new kakao.maps.LatLng(37.62426207,127.04971096),
+    new kakao.maps.LatLng(37.62429674,127.04966892),
+    new kakao.maps.LatLng(37.62439575,127.04959064),
+    new kakao.maps.LatLng(37.62464496,127.04939272),
+    new kakao.maps.LatLng(37.62480945,127.04926295),
+    new kakao.maps.LatLng(37.62503038,127.04915827),
+    new kakao.maps.LatLng(37.62534229,127.04901071),
+    new kakao.maps.LatLng(37.62553595,127.04888657),
+    new kakao.maps.LatLng(37.62582766,127.04869904),
+    new kakao.maps.LatLng(37.62602708,127.04850417),
+    new kakao.maps.LatLng(37.62626566,127.04827113),
+    new kakao.maps.LatLng(37.62643071,127.04810898),
+    new kakao.maps.LatLng(37.62672403,127.04788467),
+    new kakao.maps.LatLng(37.62708364,127.04760997),
+    new kakao.maps.LatLng(37.62749644,127.04712656),
+    new kakao.maps.LatLng(37.62764472,127.04685238),
+    new kakao.maps.LatLng(37.62774722,127.04666132),
+    new kakao.maps.LatLng(37.62790234,127.04637388),
+    new kakao.maps.LatLng(37.6280226,127.04610575),
+    new kakao.maps.LatLng(37.62826576,127.04558598),
+    new kakao.maps.LatLng(37.62841526,127.04527553),
+    new kakao.maps.LatLng(37.62849142,127.04511975),
+    new kakao.maps.LatLng(37.62862791,127.04487781),
+    new kakao.maps.LatLng(37.62870327,127.0447539),
+    new kakao.maps.LatLng(37.62877796,127.04462442),
+    new kakao.maps.LatLng(37.62886931,127.04446645),
+    new kakao.maps.LatLng(37.62889857,127.0444113),
+    new kakao.maps.LatLng(37.62896503,127.04432629),
+    new kakao.maps.LatLng(37.62908553,127.04417872),
+    new kakao.maps.LatLng(37.62929682,127.04391395),
+    new kakao.maps.LatLng(37.6293491,127.04384917),
+    new kakao.maps.LatLng(37.62952754,127.04368628),
+    new kakao.maps.LatLng(37.6296137,127.0436136),
+    new kakao.maps.LatLng(37.62969976,127.04353656),
+    new kakao.maps.LatLng(37.62997612,127.04329981),
+    new kakao.maps.LatLng(37.630104,127.04313477),
+    new kakao.maps.LatLng(37.63019933,127.04301166),
+    new kakao.maps.LatLng(37.63024028,127.04295917),
+    new kakao.maps.LatLng(37.6305326,127.04257527),
+    new kakao.maps.LatLng(37.63057474,127.04251992),
+    new kakao.maps.LatLng(37.63086578,127.04264983),
+    new kakao.maps.LatLng(37.6308676,127.04264658),
+    new kakao.maps.LatLng(37.63114486,127.04215014),
+    new kakao.maps.LatLng(37.6314276,127.04166287),
+    new kakao.maps.LatLng(37.63144201,127.0416767),
+    new kakao.maps.LatLng(37.63149921,127.04173179),
+    new kakao.maps.LatLng(37.63159794,127.04182679),
+    new kakao.maps.LatLng(37.63222659,127.0424316),
+    new kakao.maps.LatLng(37.63228424,127.04257127),
+    new kakao.maps.LatLng(37.63237337,127.04259783),
+    new kakao.maps.LatLng(37.63238142,127.04260022),
+    new kakao.maps.LatLng(37.63247569,127.04262832),
+    new kakao.maps.LatLng(37.63258175,127.04269618),
+    new kakao.maps.LatLng(37.63259674,127.04273532),
+    new kakao.maps.LatLng(37.63265923,127.04280741),
+    new kakao.maps.LatLng(37.63268099,127.04285661),
+    new kakao.maps.LatLng(37.63273212,127.04295804),
+    new kakao.maps.LatLng(37.63274343,127.04302866),
+    new kakao.maps.LatLng(37.63277432,127.04309272),
+    new kakao.maps.LatLng(37.63284566,127.04315469),
+    new kakao.maps.LatLng(37.63294281,127.04332533),
+    new kakao.maps.LatLng(37.63302245,127.04345007),
+    new kakao.maps.LatLng(37.63305275,127.04351842),
+    new kakao.maps.LatLng(37.63321527,127.04348877),
+    new kakao.maps.LatLng(37.63321923,127.04350111),
+    new kakao.maps.LatLng(37.63322745,127.04359487),
+    new kakao.maps.LatLng(37.63328236,127.04375455),
+    new kakao.maps.LatLng(37.63343548,127.04392935),
+    new kakao.maps.LatLng(37.63353737,127.04400589),
+    new kakao.maps.LatLng(37.63360133,127.04403425),
+    new kakao.maps.LatLng(37.63360295,127.04403493),
+    new kakao.maps.LatLng(37.63366198,127.04403281),
+    new kakao.maps.LatLng(37.63367761,127.04406972),
+    new kakao.maps.LatLng(37.63382728,127.04414011),
+    new kakao.maps.LatLng(37.63393224,127.04416795),
+    new kakao.maps.LatLng(37.6338984,127.04419416),
+    new kakao.maps.LatLng(37.63393237,127.04420334),
+    new kakao.maps.LatLng(37.63405318,127.04432872),
+    new kakao.maps.LatLng(37.63417443,127.044305),
+    new kakao.maps.LatLng(37.63433039,127.04434406),
+    new kakao.maps.LatLng(37.63437965,127.04445177),
+    new kakao.maps.LatLng(37.63453107,127.04446981),
+    new kakao.maps.LatLng(37.63473733,127.04456783),
+    new kakao.maps.LatLng(37.63480081,127.04452306),
+    new kakao.maps.LatLng(37.63508112,127.04459024),
+    new kakao.maps.LatLng(37.63532305,127.04464822),
+    new kakao.maps.LatLng(37.63543534,127.04479342),
+    new kakao.maps.LatLng(37.63556456,127.04486683),
+    new kakao.maps.LatLng(37.63562208,127.04497459),
+    new kakao.maps.LatLng(37.63577911,127.04496144),
+    new kakao.maps.LatLng(37.63582572,127.04503101),
+    new kakao.maps.LatLng(37.63589469,127.04499318),
+    new kakao.maps.LatLng(37.63594285,127.04502074),
+    new kakao.maps.LatLng(37.63600467,127.04505611),
+    new kakao.maps.LatLng(37.63603365,127.04504986),
+    new kakao.maps.LatLng(37.63611491,127.04503234),
+    new kakao.maps.LatLng(37.63621575,127.04506096),
+    new kakao.maps.LatLng(37.63646648,127.04503092),
+    new kakao.maps.LatLng(37.63665097,127.04504564),
+    new kakao.maps.LatLng(37.63679661,127.04515727),
+    new kakao.maps.LatLng(37.63703771,127.0451967),
+    new kakao.maps.LatLng(37.6371614,127.04528049),
+    new kakao.maps.LatLng(37.63727152,127.04529488),
+    new kakao.maps.LatLng(37.63732913,127.0453749),
+    new kakao.maps.LatLng(37.63743107,127.04536149),
+    new kakao.maps.LatLng(37.63748587,127.04545884),
+    new kakao.maps.LatLng(37.63763705,127.04556009),
+    new kakao.maps.LatLng(37.63786042,127.04603079),
+    new kakao.maps.LatLng(37.63835799,127.04614591),
+    new kakao.maps.LatLng(37.6386087,127.04620347),
+    new kakao.maps.LatLng(37.63873386,127.04628773),
+    new kakao.maps.LatLng(37.63881108,127.04625342),
+    new kakao.maps.LatLng(37.63905975,127.04646271),
+    new kakao.maps.LatLng(37.63907208,127.04647308),
+    new kakao.maps.LatLng(37.63920414,127.04652224),
+    new kakao.maps.LatLng(37.63932952,127.04669974),
+    new kakao.maps.LatLng(37.63943894,127.04667222),
+    new kakao.maps.LatLng(37.63966365,127.04678918),
+    new kakao.maps.LatLng(37.63976431,127.04665313),
+    new kakao.maps.LatLng(37.63984626,127.04661746),
+    new kakao.maps.LatLng(37.64000473,127.04665677),
+    new kakao.maps.LatLng(37.64026093,127.04650859),
+    new kakao.maps.LatLng(37.64048285,127.04650683),
+    new kakao.maps.LatLng(37.64077732,127.0465623),
+    new kakao.maps.LatLng(37.64096258,127.04655038),
+    new kakao.maps.LatLng(37.64107906,127.04659987),
+    new kakao.maps.LatLng(37.64115429,127.04675476),
+    new kakao.maps.LatLng(37.64115887,127.04726736),
+    new kakao.maps.LatLng(37.64116949,127.04780574),
+    new kakao.maps.LatLng(37.64137418,127.04777836),
+    new kakao.maps.LatLng(37.64143712,127.04793836),
+    new kakao.maps.LatLng(37.64159294,127.04821672),
+    new kakao.maps.LatLng(37.64180675,127.04855256),
+    new kakao.maps.LatLng(37.64184849,127.04867737),
+    new kakao.maps.LatLng(37.64188784,127.04879507),
+    new kakao.maps.LatLng(37.64196785,127.0488955),
+    new kakao.maps.LatLng(37.64210695,127.0490701),
+    new kakao.maps.LatLng(37.6423421,127.04916349),
+    new kakao.maps.LatLng(37.64263012,127.04931682),
+    new kakao.maps.LatLng(37.64268706,127.049433),
+    new kakao.maps.LatLng(37.64279749,127.04945156),
+    new kakao.maps.LatLng(37.64295814,127.04952467),
+    new kakao.maps.LatLng(37.64340558,127.04974058),
+    new kakao.maps.LatLng(37.64347507,127.0497641),
+    new kakao.maps.LatLng(37.64348285,127.04986298),
+    new kakao.maps.LatLng(37.64348885,127.04993932),
+    new kakao.maps.LatLng(37.64351327,127.04998579),
+    new kakao.maps.LatLng(37.64358247,127.05010204),
+    new kakao.maps.LatLng(37.64356357,127.05025906),
+    new kakao.maps.LatLng(37.64376589,127.05070917),
+    new kakao.maps.LatLng(37.64406308,127.05054831),
+    new kakao.maps.LatLng(37.64421586,127.05055443),
+    new kakao.maps.LatLng(37.64455198,127.05037831),
+    new kakao.maps.LatLng(37.64478695,127.05048761),
+    new kakao.maps.LatLng(37.64475543,127.05075278),
+    new kakao.maps.LatLng(37.64466057,127.05098671),
+    new kakao.maps.LatLng(37.64466442,127.05106658),
+    new kakao.maps.LatLng(37.64463472,127.05109917),
+    new kakao.maps.LatLng(37.64464542,127.05117134),
+    new kakao.maps.LatLng(37.64469201,127.05115702),
+    new kakao.maps.LatLng(37.64468997,127.05112934),
+    new kakao.maps.LatLng(37.64485204,127.05106179),
+    new kakao.maps.LatLng(37.64486805,127.05110809),
+    new kakao.maps.LatLng(37.64487189,127.05111923)
+];
+
+
+// 지도에 표시할 다각형을 생성합니다
+var polygon1 = new kakao.maps.Polygon({
+    path:polygonPath1, // 그려질 다각형의 좌표 배열입니다
+    strokeWeight: 3, // 선의 두께입니다
+    strokeColor: '#FF3DE5', // 선의 색깔입니다
+    strokeOpacity: 0.8, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'longdash', // 선의 스타일입니다
+    fillColor: '#A2FF99', // 채우기 색깔입니다
+    fillOpacity: 0 // 채우기 불투명도 입니다
+});
+
+// 지도에 다각형을 표시합니다
+polygon1.setMap(map);
+
+var drawingFlag = false; // 다각형이 그려지고 있는 상태를 가지고 있을 변수입니다
+var drawingPolygon; // 그려지고 있는 다각형을 표시할 다각형 객체입니다
+var polygon; // 그리기가 종료됐을 때 지도에 표시할 다각형 객체입니다
+var areaOverlay; // 다각형의 면적정보를 표시할 커스텀오버레이 입니다
+
+// 마우스 클릭 이벤트가 발생하고나면 drawingFlag가 그려지고 있는 상태인 ture 값으로 바뀝니다
+// 그려지고 있는 상태인 경우 drawingPolygon 으로 그려지고 있는 다각형을 지도에 표시합니다
+// 마우스 오른쪽 클릭 이벤트가 발생하면 drawingFlag가 그리기가 종료된 상태인 false 값으로 바뀌고
+// polygon 으로 다 그려진 다각형을 지도에 표시합니다
+
+
+// 지도에 마우스 클릭 이벤트를 등록합니다
+// 지도를 클릭하면 다각형 그리기가 시작됩니다 그려진 다각형이 있으면 지우고 다시 그립니다
+kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+
+    // 마우스로 클릭한 위치입니다 
+    var clickPosition = mouseEvent.latLng; 
+    
+    // 지도 클릭이벤트가 발생했는데 다각형이 그려지고 있는 상태가 아니면
+    if (!drawingFlag) {
+
+        // 상태를 true로, 다각형을 그리고 있는 상태로 변경합니다
+        drawingFlag = true;
+        
+        // 지도 위에 다각형이 표시되고 있다면 지도에서 제거합니다
+        if (polygon) {  
+            polygon.setMap(null);      
+            polygon = null;  
+        }
+        
+        // 지도 위에 면적정보 커스텀오버레이가 표시되고 있다면 지도에서 제거합니다
+        if (areaOverlay) {
+            areaOverlay.setMap(null);
+            areaOverlay = null;
+        }
+    
+        // 그려지고 있는 다각형을 표시할 다각형을 생성하고 지도에 표시합니다
+        drawingPolygon = new kakao.maps.Polygon({
+            map: map, // 다각형을 표시할 지도입니다
+            path: [clickPosition], // 다각형을 구성하는 좌표 배열입니다 클릭한 위치를 넣어줍니다
+            strokeWeight: 3, // 선의 두께입니다 
+            strokeColor: '#00a0e9', // 선의 색깔입니다
+            strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+            strokeStyle: 'solid', // 선의 스타일입니다
+            fillColor: '#00a0e9', // 채우기 색깔입니다
+            fillOpacity: 0.2 // 채우기 불투명도입니다
+        }); 
+        
+        // 그리기가 종료됐을때 지도에 표시할 다각형을 생성합니다 
+        polygon = new kakao.maps.Polygon({ 
+            path: [clickPosition], // 다각형을 구성하는 좌표 배열입니다 클릭한 위치를 넣어줍니다 
+            strokeWeight: 3, // 선의 두께입니다 
+            strokeColor: '#00a0e9', // 선의 색깔입니다   
+            strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+            strokeStyle: 'solid', // 선의 스타일입니다
+            fillColor: '#00a0e9', // 채우기 색깔입니다
+            fillOpacity: 0.2 // 채우기 불투명도입니다
+        });
+
+        
+    } else { // 다각형이 그려지고 있는 상태이면 
+        
+        // 그려지고 있는 다각형의 좌표에 클릭위치를 추가합니다
+        // 다각형의 좌표 배열을 얻어옵니다
+        var drawingPath = drawingPolygon.getPath();
+    
+        // 좌표 배열에 클릭한 위치를 추가하고
+        drawingPath.push(clickPosition);
+        
+        // 다시 다각형 좌표 배열을 설정합니다
+        drawingPolygon.setPath(drawingPath);
+         
+    
+        // 그리기가 종료됐을때 지도에 표시할 다각형의 좌표에 클릭 위치를 추가합니다
+        // 다각형의 좌표 배열을 얻어옵니다
+        var path = polygon.getPath();
+    
+        // 좌표 배열에 클릭한 위치를 추가하고
+        path.push(clickPosition);
+        
+        // 다시 다각형 좌표 배열을 설정합니다
+        polygon.setPath(path);
+    }
+
+});
+
+// 지도에 마우스무브 이벤트를 등록합니다
+// 다각형을 그리고있는 상태에서 마우스무브 이벤트가 발생하면 그려질 다각형의 위치를 동적으로 보여주도록 합니다
+kakao.maps.event.addListener(map, 'mousemove', function (mouseEvent) {
+
+    // 지도 마우스무브 이벤트가 발생했는데 다각형을 그리고있는 상태이면
+    if (drawingFlag){
+
+        // 마우스 커서의 현재 위치를 얻어옵니다 
+        var mousePosition = mouseEvent.latLng; 
+        
+        // 그려지고있는 다각형의 좌표배열을 얻어옵니다
+        var path = drawingPolygon.getPath();
+        
+        // 마우스무브로 추가된 마지막 좌표를 제거합니다
+        if (path.length > 1) {
+            path.pop();
+        } 
+        
+        // 마우스의 커서 위치를 좌표 배열에 추가합니다
+        path.push(mousePosition);
+
+        // 그려지고 있는 다각형의 좌표를 다시 설정합니다
+        drawingPolygon.setPath(path);
+    }             
+});     
+
+// 지도에 마우스 오른쪽 클릭 이벤트를 등록합니다
+// 다각형을 그리고있는 상태에서 마우스 오른쪽 클릭 이벤트가 발생하면 그리기를 종료합니다
+kakao.maps.event.addListener(map, 'rightclick', function (mouseEvent) {
+
+    // 지도 오른쪽 클릭 이벤트가 발생했는데 다각형을 그리고있는 상태이면
+    if (drawingFlag) {
+        
+        // 그려지고있는 다각형을  지도에서 제거합니다
+        drawingPolygon.setMap(null);
+        drawingPolygon = null;  
+        
+        // 클릭된 죄표로 그릴 다각형의 좌표배열을 얻어옵니다
+        var path = polygon.getPath();
+    
+        // 다각형을 구성하는 좌표의 개수가 3개 이상이면 
+        if (path.length > 2) {
+            
+            // 지도에 다각형을 표시합니다
+            polygon.setMap(map); 
+
+            var area = Math.round(polygon.getArea()), // 다각형의 총면적을 계산합니다
+                content = '<div class="info">총면적 <span class="number"> ' + area + '</span> m<sup>2</sup></div>'; // 커스텀오버레이에 추가될 내용입니다
+                
+            // 면적정보를 지도에 표시합니다
+            areaOverlay = new kakao.maps.CustomOverlay({
+                map: map, // 커스텀오버레이를 표시할 지도입니다 
+                content: content,  // 커스텀오버레이에 표시할 내용입니다
+                xAnchor: 0,
+                yAnchor: 0,
+                position: path[path.length-1]  // 커스텀오버레이를 표시할 위치입니다. 위치는 다각형의 마지막 좌표로 설정합니다
+            });      
+
+             
+        } else { 
+            
+            // 다각형을 구성하는 좌표가 2개 이하이면 다각형을 지도에 표시하지 않습니다 
+            polygon = null;  
+        }
+        
+        // 상태를 false로, 그리지 않고 있는 상태로 변경합니다
+        drawingFlag = false;          
+    }  
+});    
+</script>
+</body>
+</html>
